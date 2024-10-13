@@ -3,15 +3,15 @@
   "version": "1.0.0",
   "description": "A platform that lets investors track their consolidated portfolio value across equity, debt, and gold.",
   "main": "geektrust.js",
-  "type": "module",
+  "type": "commonjs",
   "scripts": {
     "start": "node geektrust.js",
-    "dev": "node --watch geektrust.js",
+    "dev": "node --watch geektrust.js ./sample_input/input1.txt",
     "test": "jest"
   },
   "repository": {
     "type": "git",
-    "url": "git+ssh://git@github.com/AbhilashMadi/Geektrust-Backend-Challenges.git"
+    "url": "https://github.com/AbhilashMadi/Geektrust-Backend-Challenges.git"
   },
   "keywords": [
     "Geektrust"
@@ -19,9 +19,9 @@
   "author": "AbhilashMadi",
   "license": "ISC",
   "bugs": {
-    "url": "https://github.com/AbhilashMadi/Geektrust-Backend-Challenges/issues"
+    "url": "https://github.com/AbhilashMadi/Geektrust-Backend-Challenges.git"
   },
-  "homepage": "https://github.com/AbhilashMadi/Geektrust-Backend-Challenges#readme",
+  "homepage": "https://github.com/AbhilashMadi/Geektrust-Backend-Challenges.git",
   "devDependencies": {
     "jest": "^29.7.0"
   }

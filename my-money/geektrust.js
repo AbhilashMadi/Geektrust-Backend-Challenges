@@ -1,6 +1,6 @@
-import fs from "node:fs";
-import { IpOpMsgs, Operations } from "./constants.js";
-import Portfolio from "./portfolio.js";
+const fs = require("node:fs");
+const { Operations } = require("./src/constants.js");
+const Portfolio = require("./src/portfolio.js");
 
 const args = process.argv;
 

@@ -1,5 +1,5 @@
-import { getMonthsList } from "./utils.js";
-import { DesiredEquity, IpOpMsgs } from "./constants.js";
+const { getMonthsList } = require("./utils.js");
+const { DesiredEquity, IpOpMsgs } = require("./constants.js");
 
 class Portfolio {
     constructor() {
@@ -76,4 +76,4 @@ class Portfolio {
     }
 }
 
-export default Portfolio;
+module.exports = Portfolio;
