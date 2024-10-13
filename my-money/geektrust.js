@@ -1,82 +1,70 @@
-class Portfolio {
-  constructor() {
-    this.equity = 0;
-    this.debt = 0;
-    this.gold = 0;
-    this.sipEquity = 0;
-    this.sipDebt = 0;
-    this.sipGold = 0;
-    this.monthsData = {};
-  }
+import fs from "node:fs";
+import { IpOpMsgs, Operations } from "./constants.js";
+import Portfolio from "./portfolio.js";
 
-  allocate(eq, debt, gold) {
-    this.equity = eq;
-    this.debt = debt;
-    this.gold = gold;
-  }
+const args = process.argv;
 
-  sip(eq, debt, gold) {
-    this.sipEquity = eq;
-    this.sipDebt = debt;
-    this.sipGold = gold;
-  }
-
-  change(eqChange, debtChange, goldChange, month) {
-    if (month !== "JANUARY") {
-      this.equity += this.sipEquity;
-      this.debt += this.sipDebt;
-      this.gold += this.sipGold;
-    }
-
-    this.equity += Math.floor(this.equity * (eqChange / 100));
-    this.debt += Math.floor(this.debt * (debtChange / 100));
-    this.gold += Math.floor(this.gold * (goldChange / 100));
-
-    this.monthsData[month] = {
-      equity: Math.floor(this.equity),
-      debt: Math.floor(this.debt),
-      gold: Math.floor(this.gold),
-    };
-  }
-
-  balance(month) {
-    const data = this.monthsData[month];
-    if (data) {
-      console.log(`${data.equity} ${data.debt} ${data.gold}`);
-    } else {
-      console.log("No data for this month");
-    }
-  }
-
-  rebalance() {
-    const months = Object.keys(this.monthsData);
-    if (months.length < 6 || (!months.includes("JUNE") && !months.includes("DECEMBER"))) {
-      console.log("CANNOT_REBALANCE");
-      return;
-    }
-
-    const lastMonth = months[months.length - 1];
-    const total = this.equity + this.debt + this.gold;
-    const desiredEquity = total * 0.6;
-    const desiredDebt = total * 0.3;
-    const desiredGold = total * 0.1;
-
-    this.equity = desiredEquity;
-    this.debt = desiredDebt;
-    this.gold = desiredGold;
-
-    console.log(`${Math.floor(this.equity)} ${Math.floor(this.debt)} ${Math.floor(this.gold)}`);
-  }
+// Validate the number of arguments provided
+if (args.length < 3) {
+  console.error("Error: Missing required argument: File Path");
+  process.exit(1);
 }
 
-const portfolio = new Portfolio();
+const filePath = args[2];
 
-portfolio.allocate(8000, 6000, 3500);
-portfolio.sip(3000, 2000, 1000);
-portfolio.change(11, 9, 4, "JANUARY");
-portfolio.change(-6, 21, -3, "FEBRUARY");
-portfolio.change(12.5, 18, 12.5, "MARCH");
-portfolio.change(23, -3, 7, "APRIL");
-portfolio.balance("MARCH");
-portfolio.balance("APRIL");
-portfolio.rebalance();
+// Check if the file path is valid
+if (!fs.existsSync(filePath)) {
+  console.error("Error: Invalid file path provided");
+  process.exit(1);
+}
+
+try {
+  const portfolio = new Portfolio();
+  const inputs = fs.readFileSync(filePath, "utf-8").trim().split("\n");
+
+  for (const line of inputs) {
+    const [operation, ...params] = line.trim().split(/\s+/);
+
+    // Validate the operation
+    if (!Object.values(Operations).includes(operation)) {
+      throw new Error("Invalid operation provided");
+    }
+
+    switch (operation) {
+      case Operations.ALLOCATE: {
+        const [eqAmt, debtAmt, goldAmt] = params.map(Number);
+        portfolio.allocate(eqAmt, debtAmt, goldAmt);
+        break;
+      }
+      case Operations.SIP: {
+        const [eqAmt, debtAmt, goldAmt] = params.map(Number);
+        portfolio.sip(eqAmt, debtAmt, goldAmt);
+        break;
+      }
+      case Operations.CHANGE: {
+        const [eqPercent, debtPercent, goldPercent, month] = params;
+        const getPercent = (p) => parseFloat(p.slice(0, -1));
+
+        portfolio.change(getPercent(eqPercent), getPercent(debtPercent), getPercent(goldPercent), month);
+        break;
+      }
+      case Operations.BALANCE: {
+        const [month] = params;
+        portfolio.balance(month);
+        break;
+      }
+      case Operations.REBALANCE: {
+        portfolio.rebalance();
+        break;
+      }
+      default:
+        console.error("Error: Unknown operation");
+        break;
+    }
+  }
+} catch (error) {
+  console.error(`Error: ${error.message}`);
+  process.exit(1);
+} finally {
+  process.exit(0);
+}
