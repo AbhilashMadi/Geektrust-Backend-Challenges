@@ -1,0 +1,22 @@
+{
+  "name": "geektrust-my_money",
+  "version": "1.0.0",
+  "description": "A platform that lets investors track their consolidated portfolio value across equity, debt, and gold.",
+  "main": "geektrust.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+ssh://git@github.com/AbhilashMadi/Geektrust-Backend-Challenges.git"
+  },
+  "keywords": [
+    "Geektrust"
+  ],
+  "author": "AbhilashMadi",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/AbhilashMadi/Geektrust-Backend-Challenges/issues"
+  },
+  "homepage": "https://github.com/AbhilashMadi/Geektrust-Backend-Challenges#readme"
+}
