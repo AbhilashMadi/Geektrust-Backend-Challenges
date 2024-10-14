@@ -4,58 +4,57 @@ const { Operations } = require("./src/constants.js");
 const Portfolio = require("./src/portfolio.js");
 
 /*  CODE MAP
--------------------------------------------------------------------------------
     START
 
-    1. PARSE command-line arguments to get the file path
+    1.PARSE command-line arguments to get the file path
       - Command-line arguments provided: args
       - IF arguments < 3:
         - PRINT error message: "Missing required argument: File Path"
         - EXIT the program
 
-    2. VALIDATE if the file path exists
+    2.VALIDATE if the file path exists
       - IF file path does not exist:
         - PRINT error message: "Invalid file path provided"
         - EXIT the program
 
-    3. INITIALIZE a new portfolio object
+    3.INITIALIZE a new portfolio object
       - portfolio = new Portfolio()
 
-    4. READ the file content
+    4.READ the file content
       - READ the file located at filePath
       - SPLIT the content into individual lines
 
-    5. FOR each line in the file:
+    5.FOR each line in the file:
       - TRIM the line and SPLIT it into the operation and parameters
       - SWITCH based on the operation:
         
-        a. IF operation is ALLOCATE:
+        a.IF operation is ALLOCATE:
             - PARSE parameters as numbers
             - CALL portfolio.allocate(eqAmt, debtAmt, goldAmt)
         
-        b. IF operation is SIP:
+        b.IF operation is SIP:
             - PARSE parameters as numbers
             - CALL portfolio.sip(eqAmt, debtAmt, goldAmt)
         
-        c. IF operation is CHANGE:
+        c.IF operation is CHANGE:
             - PARSE parameters: percentages and month
             - CONVERT percentage strings into float values (removing '%')
             - CALL portfolio.change(eqPercent, debtPercent, goldPercent, month)
         
-        d. IF operation is BALANCE:
+        d.IF operation is BALANCE:
             - PARSE parameters: month
             - CALL portfolio.balance(month)
         
-        e. IF operation is REBALANCE:
+        e.IF operation is REBALANCE:
             - CALL portfolio.rebalance()
 
-    6. HANDLE any errors:
+    6.HANDLE any errors:
       - IF an unknown operation is encountered:
-        - THROW an error: "Invalid operation provided"
+      - THROW an error: "Invalid operation provided"
       - CATCH any other errors and PRINT the error message
       - EXIT the program
 
-    7. EXIT the program once all operations are processed
+    7.EXIT the program once all operations are processed
 
     END
 */
@@ -69,7 +68,6 @@ class PortfolioManager {
   }
 
   validateFilePath() {
-    // Validate file path existence
     if (!fs.existsSync(this.filePath)) {
       throw new Error("Invalid file path provided");
     }
