@@ -1,6 +1,5 @@
-// booking-manager.test.js
 const BookingManager = require("../src/make-space/booking-manager.js");
-const { IpOpMessages, MIN_PERSON_CAPACITY, MAX_PERSON_CAPACITY } = require("../src/utils/constants.js");
+const { IpOpMessages } = require("../src/utils/constants.js");
 
 describe("BookingManager class", () => {
   let manager;

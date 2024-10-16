@@ -5,6 +5,8 @@
   "main": "geektrust.js",
   "type": "commonjs",
   "scripts": {
+    "start": "node geektrust.js",
+    "dev": "node --watch geektrust.js ./sample_input/input1.txt",
     "test": "jest"
   },
   "repository": {
