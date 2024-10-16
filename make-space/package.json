@@ -1,0 +1,27 @@
+{
+  "name": "make-space",
+  "version": "1.0.0",
+  "description": "Make Space Ltd. is a startup offering a co-working space to individuals, freelancers and startups. They provide a common workspace where anyone can come and work. Along with it, they have dedicated meeting rooms that their customers can book for private discussions.",
+  "main": "geektrust.js",
+  "type": "commonjs",
+  "scripts": {
+    "test": "jest"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+ssh://git@github.com/AbhilashMadi/Geektrust-Backend-Challenges.git"
+  },
+  "keywords": [
+    "make-space",
+    "geektrust"
+  ],
+  "author": "https://github.com/AbhilashMadi",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/AbhilashMadi/Geektrust-Backend-Challenges/issues"
+  },
+  "homepage": "https://github.com/AbhilashMadi/Geektrust-Backend-Challenges#readme",
+  "devDependencies": {
+    "jest": "^29.7.0"
+  }
+}

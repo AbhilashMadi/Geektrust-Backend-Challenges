@@ -2,7 +2,7 @@
 
 exports.DesiredEquity = {
     EQUITY: 0.6,
-    DEPT: 0.3,
+    DEBT: 0.3,
     GOLD: 0.1,
 }
 
