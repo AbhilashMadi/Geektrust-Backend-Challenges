@@ -1,4 +1,3 @@
-// booking-manager.js
 const Room = require("./room.js");
 const {
   ROOMS,
@@ -12,7 +11,6 @@ const {
 
 class BookingManager {
   constructor() {
-    // Initialize rooms
     this.rooms = [
       new Room(ROOMS.C_CAVE.name, ROOMS.C_CAVE.personCapacity),
       new Room(ROOMS.D_TOWER.name, ROOMS.D_TOWER.personCapacity),
@@ -29,20 +27,21 @@ class BookingManager {
     this.markBufferTimes();
   }
 
-  // Convert HH:MM time format to slot index (15-minute intervals)
+  // Convert HH:MM time format to slot index
   timeToSlot(time) {
     const [H, M] = time.split(":").map(Number);
     return (H * 60 + M) / MIN_SLOT_INTERVAL;
   }
 
+  isValidInterval(slot) {
+    return slot % (MIN_SLOT_INTERVAL / 15) === 0;
+  };
+
   // Validate if the time slot range is correct
   isValidSlotTime(startSlot, endSlot) {
-    const isValidInterval = (slot) => {
-      return slot % (MIN_SLOT_INTERVAL / 15) === 0;
-    };
 
     // Check if both start and end slots are valid intervals
-    if (!isValidInterval(startSlot) || !isValidInterval(endSlot)) {
+    if (!this.isValidInterval(startSlot) || !this.isValidInterval(endSlot)) {
       return false;
     }
 
@@ -105,6 +104,7 @@ class BookingManager {
 
     // Check for room availability and book if possible
     const room = this.findAvailableRoom(startSlot, endSlot, capacity);
+
     if (room) {
       room.bookRoom(startSlot, endSlot);
       return room.name;

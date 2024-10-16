@@ -5,7 +5,7 @@ class Room {
   constructor(name, personCapacity) {
     this.name = name;
     this.personCapacity = personCapacity;
-    this.schedule = Array(POSSIBLE_SLOT_INTERVALS).fill(false); // 96 slots representing 24 hours in 15-minute intervals
+    this.schedule = Array(POSSIBLE_SLOT_INTERVALS).fill(false);
   }
 
   // Check availability in the given slot range

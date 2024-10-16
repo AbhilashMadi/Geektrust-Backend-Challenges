@@ -1,8 +1,6 @@
-// Required modules
 const fs = require("node:fs");
 const path = require("node:path");
 
-// Custom modules
 const { Operations } = require("./src/utils/constants.js");
 const BookingManager = require("./src/make-space/booking-manager.js");
 
@@ -34,7 +32,9 @@ class Main {
    */
   processFile() {
     try {
-      const inputs = fs.readFileSync(this.filePath, "utf-8").trim().split("\n");
+      const inputs = fs.readFileSync(this.filePath, "utf-8")
+        .trim()
+        .split("\n");
 
       inputs.forEach((line) => {
         this.processLine(line.trim());
