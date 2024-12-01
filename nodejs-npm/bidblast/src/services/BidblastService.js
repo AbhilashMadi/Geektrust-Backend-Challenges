@@ -6,6 +6,9 @@ class BidBlastService {
     this.members = new Map();
     this.events = new Map();
     this.winners = new Map();
+
+    this.memberIdCounter = 1;
+    this.eventIdCounter = 1;
   }
 
   addMember(name, coins) {
@@ -13,7 +16,7 @@ class BidBlastService {
       throw new Error("coins must be greater than 0");
     }
 
-    const member = new Member(name, coins);
+    const member = new Member(this.memberIdCounter++, name, coins);
     const memberId = member.getId();
 
     this.members.set(memberId, member);
@@ -21,7 +24,7 @@ class BidBlastService {
   }
 
   addEvent(name, prize, date) {
-    const event = new Event(name, prize, date);
+    const event = new Event(this.eventIdCounter++, name, prize, date);
     const eventId = event.id;
 
     this.events.set(eventId, event);
@@ -45,8 +48,8 @@ class BidBlastService {
     const member = this.members.get(memberId);
     const event = this.events.get(eventId);
 
-    if (!member) throw new Error(`Member with the id:${memberId} does not exist`);
-    if (!event) throw new Error(`Event with the id:${eventId} does not exist`);
+    if (!member) return "MEMBER_NOT_EXIST";
+    if (!event) return "EVENT_NOT_EXIST";
 
     const maxBid = Math.max(...bids);
     if (member.getCoins() < maxBid) {
@@ -61,7 +64,7 @@ class BidBlastService {
 
   declareWinner(eventId) {
     const event = this.events.get(eventId);
-    if (!event) throw new Error(`Event with the given id:${eventId} does not exist`);
+    if (!event) return "EVENT_NOT_EXIST";
 
     const winnerId = event.getWinner();
     if (!winnerId) throw new Error("No bids were submitted");

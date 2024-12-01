@@ -1,8 +1,7 @@
 class Event {
-  static idgenerator = 1;
 
-  constructor(name, prize, date) {
-    this.id = Event.idgenerator++;
+  constructor(id, name, prize, date) {
+    this.id = id;
     this.name = name;
     this.prize = prize;
     this.date = new Date(date);

@@ -5,10 +5,8 @@ class Member {
   #coins;
   #registeredEvents;
 
-  static idgenerator = 1;
-
-  constructor(name, coins) {
-    this.#id = Member.idgenerator++;
+  constructor(id, name, coins) {
+    this.#id = id;
     this.#name = name;
     this.#coins = coins;
     this.#registeredEvents = new Set();
