@@ -1,0 +1,2 @@
+
+ERROR Event with the given id:1 does not exist
