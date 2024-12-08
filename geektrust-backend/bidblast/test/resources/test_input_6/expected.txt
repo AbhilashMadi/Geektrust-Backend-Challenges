@@ -1,0 +1,5 @@
+
+MEMBER_ADDED 1 John 10000
+EVENT_ADDED 1 Event1 IPHONE-14 2023-09-11
+MEMBER_REGISTERED 1 John
+ERROR Already registered for this event
